@@ -1,0 +1,12 @@
+*.log
+*.pyc
+*.py~
+.python-version
+.DS_Store
+.idea/*
+.~*
+.env
+*/settings/development.py
+/media/*
+/static/*
+/node_modules/*
