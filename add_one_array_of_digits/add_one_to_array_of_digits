@@ -1,0 +1,30 @@
+# Write a program which takes as input an array of digit encoding a decimal integer D and updates the array
+# to represent the integer D + 1
+
+number_list = [9, 9, 9, 9]
+result_test = [1, 0, 0, 0, 0]
+
+
+def plus_one(number):
+    number[-1] += 1
+    for i in reversed(range(1, len(number))):
+        if number[i] != 10:
+            break
+
+        # case when total is 10
+        number[i] = 0
+        number[i-1] += 1
+
+    # case when first number is 10
+    if number[0] == 10:
+        number[0] = 0
+        number.insert(0, 1)
+
+    return number
+
+
+print('result')
+print(plus_one(number_list))
+
+if result_test == plus_one(number_list):
+    print('Test passed')
