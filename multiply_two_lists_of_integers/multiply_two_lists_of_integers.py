@@ -14,8 +14,8 @@
 # sum
 
 # num1, num2
-# for i reverse(num2):
-#     for j in reverse(num1)
+# for i reversed(num2):
+#     for j in reversed(num1)
 
 #           num1[j] x num2[i]
 
@@ -42,19 +42,17 @@
 # result = [0] * [len(num1) + len(num2)]
 
 test_number_one = [1, 2, 3]
-test_number_two = [3, 2, 1]
+test_number_two = [-3, 2, 1]
 result_test = [-3, 9, 4, 8, 3]
 
 
 def multiply_two_numbers(num1, num2):
     is_result_negative = False
 
-    if num1[0] < 0 and num2[0] > 0:
+    if num1[0] * num2[0] < 0:
         is_result_negative = True
 
-    if num1[0] > 0 and num2[0] < 0:
-        is_result_negative = True
-
+    # Remove negative signs
     num1[0] = abs(num1[0])
     num2[0] = abs(num2[0])
 
@@ -72,8 +70,8 @@ def multiply_two_numbers(num1, num2):
     if is_result_negative:
         result[0] = result[0] * -1
 
-    print('result')
-    print(result)
+    print('Result: {}'.format(result))
+    return result
 
 
 if result_test == multiply_two_numbers(test_number_one, test_number_two):
