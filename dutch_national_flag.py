@@ -113,3 +113,50 @@ if test_result == rearrange_number_list_three(test_num, test_pivot_index):
     print('Test passed')
 
 
+test_num = [4, 4, 2, 2, 0, 0]
+test_pivot_index = 2
+test_result = [0, 0, 2, 2, 4, 4]
+
+
+def rearrange_number_list_four(number_list, pivot_index):
+    pivot = number_list[pivot_index]
+    smaller_index, equal_index, larger_index = 0, 0, len(number_list)
+
+    # bottom group:   number_list[:smaller]
+    # middle group:   number_list[smaller:equal]
+    # unclassified group:  number_list[equal:larger]
+    # bottom group:   number_list[equal:larger]
+
+    # smaller = 0, equal = 0, larger = 5
+    # 4 2 4 2 0 0
+    # 4           // larger -1 (smaller=0, equal=0, larger = 4)
+    # 0 2 4 2 0 4
+    # 0           // smaller, equal +=1 (smaller 1, equal 1, larger = 4)
+    # 0 2 4 2 0 4
+    #   2         // equal +1 (smaller =  1, equal = 2, larger = 4)
+    # 0 2 4 2 0 4
+    #     4       // larger -1 (smaller =  1, equal = 2, larger = 3)
+    # 0 2 0 2 4 4
+    #     0       // smaller, equal +=1 (smaller 2, equal 3, larger = 3)
+    # 0 0 2 2 4 4
+    #             // end while
+
+    while equal_index < larger_index:
+        if number_list[equal_index] < pivot:
+            number_list[equal_index], number_list[smaller_index] = number_list[smaller_index], number_list[equal_index]
+            smaller_index += 1
+            equal_index += 1
+
+        elif number_list[equal_index] == pivot:
+            equal_index += 1
+
+        else:
+            larger_index -= 1
+            number_list[equal_index], number_list[larger_index] = number_list[larger_index], number_list[equal_index]
+
+    print('result {}'.format(number_list))
+    return number_list
+
+
+if test_result == rearrange_number_list_four(test_num, test_pivot_index):
+    print('Test passed')
