@@ -1,0 +1,55 @@
+test_string = 'cccccccc'
+test_result = 'cccccccc'
+
+def longest_palindrome(s: 'str') -> 'str':
+    if s is '':
+        return s
+
+    longest_palindrome_so_far = s[0]
+
+    for index, letter in enumerate(s):
+        # Part 1
+        # Check for odd number of letter in palindrome word
+        max_amount_of_letters_on_the_left = len(s[:index])
+        max_amount_of_letters_on_the_right = len(s[index + 1:])
+        max_number_of_letters = min(max_amount_of_letters_on_the_left, max_amount_of_letters_on_the_right)
+
+
+        for i in range(max_number_of_letters):
+            i += 1
+            if s[index - i] == s[index + i]:
+                if len(s[index - i:index + i + 1]) > len(longest_palindrome_so_far):
+                    longest_palindrome_so_far = s[(index - i):(index + i + 1)]
+            else:
+                break
+
+        # Part 2
+        # Check for even number of letter in palidrome word
+        # We don't want to compare the lest letter
+        if index == len(s) - 1:
+            break
+
+        #  Example 'aa'
+        if s[index] == s[index + 1]:
+            if len(longest_palindrome_so_far) < 2:
+                longest_palindrome_so_far = s[index:index + 2]
+
+            # Check the values before and after matching group
+            max_amount_of_letters_on_the_left = len(s[:index])
+            max_amount_of_letters_on_the_right = len(s[index + 2:])
+            max_number_of_letters_even = min(max_amount_of_letters_on_the_left, max_amount_of_letters_on_the_right)
+
+            for i in range(max_number_of_letters_even):
+                i += 1
+                if s[index - i] == s[index + 1 + i]:
+                    if len(s[index - i:index + 2 + i]) > len(longest_palindrome_so_far):
+                        longest_palindrome_so_far = s[(index - i):(index + 2 + i)]
+                else:
+                    break
+
+    return longest_palindrome_so_far
+
+if test_result == longest_palindrome(test_string):
+    print('Test passed')
+else:
+    print('Test failed')
